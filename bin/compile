@@ -135,9 +135,12 @@ if [ ! -e $build_dir/Procfile ]; then
 fi
 
 # Update the PATH
-status "Building runtime environment"
-mkdir -p $build_dir/.profile.d
-echo "export PATH=\"\$HOME/vendor/node/bin:\$HOME/bin:\$HOME/node_modules/.bin:\$PATH\";" > $build_dir/.profile.d/nodejs.sh
+status "Building runtime environment (Just a hack for multi)"
+cur_dir=`pwd`
+cd $build_dir; cd ..
+mkdir -p .profile.d
+echo "export PATH=\"\$HOME/vendor/node/bin:\$HOME/bin:\$HOME/node_modules/.bin:\$PATH\";" > .profile.d/nodejs.sh
+cd $cur_dir
 
 # Post package.json to nomnom service
 # Use a subshell so failures won't break the build.
